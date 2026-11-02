@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap');
+
+/* --- VARIABEL WARNA & DASAR --- */
+.wb {
+  --bg: #fdfbf7;
+  --surface: #ffffff;
+  --fg: #333333;
+  --muted: #888888;
+  --line: #eee3d1;
+  --accent: #724530; /* Coklat Klikkorie */
+  --accent-fg: #ffffff; /* Putih (Teks untuk background Accent) */
+  --accent-soft: #f7f2e9;
+  --scrim: rgba(18, 24, 21, 0.45);
+  --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Figtree', 'Segoe UI', system-ui, sans-serif;
+  --header-h: 60px;
+
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  .wb {
+    --bg: #121715;
+    --surface: #1a211e;
+    --fg: #e8ede9;
+    --muted: #9aa59f;
+    --line: #2a332f;
+    --accent: #6fc2a0;
+    --accent-fg: #0d1a14;
+    --accent-soft: #1f3029;
+    --scrim: rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+}
+
+.wb *, .wb *::before, .wb *::after { box-sizing: border-box; }
+.wb button, .wb input, .wb select { font: inherit; color: inherit; }
+.wb button { cursor: pointer; }
+.wb :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wb-num { font-variant-numeric: tabular-nums; }
+
+.wb-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* --- HEADER & TOMBOL KERANJANG ATAS --- */
+.wb-top {
+  position: sticky; top: 0; z-index: 30; height: var(--header-h);
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.wb-top-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.wb-brand { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+.wb-brand b { font-family: var(--font-display); font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+.wb-brand span { font-size: 12px; color: var(--muted); }
+
+/* Tombol Pesanan di Header */
+.wb-cart-btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px;
+  border: 1px solid var(--line); background: var(--surface); border-radius: 10px; font-weight: 600; font-size: 14px;
+  color: inherit; /* Mengikuti warna teks default / gelap */
+}
+.wb-count {
+  min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; display: inline-grid; place-items: center;
+  background: var(--accent); color: var(--accent-fg); font-size: 12px; font-weight: 700;
+}
+.wb-count[data-zero='true'] { 
+  background: var(--line); color: var(--muted); 
+}
+
+
+/* --- BANNER --- */
+.wb-banner {
+  margin-top: 24px;
+  padding: 30px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #341d14 0%, #724530 100%);
+  color: #ffffff;
+}
+.wb-banner-label {
+  display: block; margin-bottom: 12px; color: #e8c9a8; font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+}
+.wb-banner h2 {
+  margin: 0 0 10px; font-family: var(--font-display); font-size: clamp(24px, 5vw, 32px); line-height: 1.2;
+}
+.wb-banner p {
+  margin: 0; color: #eee3d1; font-size: 14px; line-height: 1.7; max-width: 520px;
+}
+@media (max-width: 480px) {
+  .wb-banner { margin-top: 32px; margin-bottom: 20px; }
+}
+
+
+/* --- SEARCH BAR --- */
+.wb-search { 
+  position: relative; 
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.wb-search input {
+  width: 100%; height: 48px; padding: 0 16px 0 46px; 
+  border-radius: 12px; border: 1px solid var(--line); background: var(--surface);
+  font-size: 15px; color: var(--fg);
+  -webkit-appearance: none; appearance: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03); transition: all 0.2s ease-in-out;
+}
+.wb-search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); outline: none; }
+.wb-search input::placeholder { color: var(--muted); }
+.wb-search svg { 
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%); 
+  width: 20px; height: 20px; stroke: var(--muted); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; pointer-events: none;
+}
+.wb-search input::-webkit-search-cancel-button {
+  -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background-color: var(--muted); cursor: pointer;
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'></line><line x1='6' y1='6' x2='18' y2='18'></line></svg>");
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'></line><line x1='6' y1='6' x2='18' y2='18'></line></svg>");
+}
+
+
+/* --- KATEGORI --- */
+.wb-cats { position: sticky; top: var(--header-h); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.wb-scroll { display: flex; gap: 8px; overflow-x: auto; padding-block: 10px; scrollbar-width: none; }
+.wb-scroll::-webkit-scrollbar { display: none; }
+.wb-chip {
+  flex: none; height: 36px; padding: 0 14px; border-radius: 18px; border: 1px solid var(--line);
+  background: var(--surface); font-size: 14px; font-weight: 600; white-space: nowrap;
+}
+.wb-chip[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+
+
+/* --- DAFTAR MENU --- */
+.wb-main { padding-block: 8px 120px; }
+.wb-group { padding-top: 24px; }
+.wb-group h2 { margin: 0 0 4px; font-family: var(--font-display); font-size: 20px; letter-spacing: -0.01em; display: flex; align-items: baseline; gap: 10px; }
+.wb-group h2 small { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--muted); }
+.wb-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.wb-name { font-weight: 600; overflow-wrap: anywhere; }
+.wb-price { color: var(--muted); font-size: 14px; }
+.wb-add {
+  height: 36px; padding: 0 16px; border-radius: 9px; border: 1px solid var(--accent);
+  background: transparent; color: var(--accent); font-weight: 700; font-size: 14px;
+}
+.wb-add:hover { background: var(--accent-soft); }
+.wb-stepper { display: inline-flex; align-items: center; height: 36px; border-radius: 9px; background: var(--accent); color: #ffffff; }
+.wb-stepper button { width: 36px; height: 36px; border: 0; background: transparent; color: inherit; font-size: 18px; font-weight: 700; border-radius: 9px; }
+.wb-stepper span { min-width: 22px; text-align: center; font-weight: 700; }
+.wb-stepper--sm { height: 32px; }
+.wb-stepper--sm button { width: 32px; height: 32px; }
+.wb-temp { display: inline-flex; margin-top: 8px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.wb-temp button { height: 30px; padding: 0 14px; border: 0; background: var(--surface); color: var(--muted); font-size: 13px; font-weight: 600; }
+.wb-temp button + button { border-left: 1px solid var(--line); }
+.wb-temp button[aria-pressed='true'] { background: var(--accent-soft); color: var(--accent); }
+.wb-empty { padding: 56px 0; text-align: center; color: var(--muted); }
+
+
+/* --- BAR KERANJANG BAWAH (Mengambang) --- */
+.wb-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 25;
+  padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: linear-gradient(to top, var(--bg) 70%, transparent);
+}
+.wb-bar button {
+  display: flex; width: 100%; max-width: 688px; margin: 0 auto; height: 52px; padding: 0 18px; align-items: center; justify-content: space-between;
+  border: 0; border-radius: 12px; background: var(--accent); color: #ffffff; font-weight: 700; font-size: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+
+/* --- PANEL PESANAN (CART SHEET) --- */
+.wb-sheet { position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-end; justify-content: center; }
+.wb-scrim { position: absolute; inset: 0; background: var(--scrim); }
+.wb-panel {
+  position: relative; width: 100%; max-height: 92%; display: flex; flex-direction: column;
+  background: var(--surface); border-radius: 18px 18px 0 0; border: 1px solid var(--line); border-bottom: 0;
+}
+.wb-panel header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px 12px; border-bottom: 1px solid var(--line); }
+.wb-panel h3 { margin: 0; font-family: var(--font-display); font-size: 20px; }
+.wb-x { width: 36px; height: 36px; border-radius: 9px; border: 1px solid var(--line); background: transparent; font-size: 16px; }
+.wb-body { overflow-y: auto; padding: 8px 18px 16px; display: grid; gap: 6px; align-content: start; min-height: 0; }
+.wb-panel footer { padding: 14px 18px calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); display: grid; gap: 12px; }
+.wb-line { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.wb-n { font-weight: 600; overflow-wrap: anywhere; }
+.wb-p { font-size: 13px; color: var(--muted); }
+.wb-field { display: grid; gap: 6px; margin-top: 12px; border: 0; padding: 0; min-width: 0; }
+.wb-field label, .wb-field legend { font-size: 13px; font-weight: 600; padding: 0; }
+.wb-field input[type='text'], .wb-field select {
+  height: 42px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); width: 100%;
+}
+.wb-seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.wb-seg input { position: absolute; opacity: 0; pointer-events: none; }
+.wb-seg label {
+  height: 42px; display: grid; place-items: center; border-radius: 10px; border: 1px solid var(--line); background: var(--bg);
+  font-weight: 600; cursor: pointer;
+}
+.wb-seg input:checked + label { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.wb-seg input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wb-sum { display: grid; gap: 4px; font-size: 14px; }
+.wb-sum div { display: flex; justify-content: space-between; color: var(--muted); }
+.wb-sum .wb-total { color: var(--fg); font-weight: 700; font-size: 17px; padding-top: 6px; }
+
+/* Tombol Aksi Utama di dalam Cart Sheet (Buat Pesanan, Selesai, Menunggu...) */
+.wb-primary { 
+  height: 48px; border: 0; border-radius: 11px; 
+  background: var(--accent); 
+  color: #ffffff !important; /* Warna font dipaksa menjadi putih mutlak */
+  font-weight: 700; font-size: 15px; width: 100%; 
+}
+.wb-secondary { height: 44px; border-radius: 11px; border: 1px solid var(--line); background: transparent; font-weight: 600; width: 100%; }
+.wb-note { font-size: 13px; color: var(--muted); margin: 0; }
+
+.wb-done { display: grid; gap: 10px; padding-top: 12px; }
+.wb-ok { display: inline-flex; width: fit-content; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 13px; }
+.wb-code { font-family: var(--font-display); font-size: 34px; font-weight: 700; letter-spacing: 0.01em; }
+.wb-done dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; font-size: 14px; }
+.wb-done dt { color: var(--muted); }
+.wb-done dd { margin: 0; text-align: right; }
+
+@media (min-width: 640px) {
+  .wb-sheet { align-items: stretch; justify-content: flex-end; }
+  .wb-panel { width: 420px; max-height: none; height: 100%; border-radius: 0; border: 0; border-left: 1px solid var(--line); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .wb-panel { animation: wb-rise 0.22s ease-out; }
+  @keyframes wb-rise { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @media (min-width: 640px) {
+    @keyframes wb-rise { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+  }
+}
+
+/* --- TAMPILAN STATUS PEMBAYARAN (QRIS & TUNAI) --- */
+.wb-qris-box { 
+  display: flex; flex-direction: column; align-items: center; padding: 24px 16px; 
+  background: var(--surface); border: 2px dashed var(--line); border-radius: 16px; text-align: center; margin-bottom: 12px;
+}
+.wb-qris-box img { 
+  width: 180px; height: 180px; object-fit: contain; margin-bottom: 16px; border-radius: 12px; padding: 10px; border: 1px solid var(--line);
+}
+.wb-qris-box h4, .wb-cash-box h4 { margin: 0 0 8px 0; font-size: 18px; font-family: var(--font-display); }
+.wb-qris-box p, .wb-cash-box p { margin: 0; font-size: 14px; color: var(--muted); }
+.wb-qris-box b, .wb-cash-box b { color: var(--fg); }
+.wb-pulse { color: var(--accent) !important; font-weight: 700; margin-top: 12px !important; animation: wb-pulse 1.5s infinite; }
+@keyframes wb-pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+
+.wb-cash-box { 
+  text-align: center; padding: 24px 16px; background: var(--accent-soft); border-radius: 16px; color: var(--fg); margin-bottom: 12px;
+}
+.wb-cash-icon { font-size: 48px; margin-bottom: 12px; }
+.wb-dev-btn { 
+  margin-top: 16px; padding: 6px 12px; font-size: 12px; font-weight: 600; background: transparent; border: 1px dashed var(--accent); color: var(--accent); border-radius: 8px; 
+}
+
+.wb-success-box { 
+  text-align: center; padding: 20px; background: #eef7f0; color: #2e7d32; border-radius: 16px; margin-bottom: 12px; border: 1px solid #c8e6c9;
+}
+.wb-success-box .wb-ok { font-weight: 700; font-size: 16px; margin-bottom: 6px; color: #2e7d32; background: transparent; }
+.wb-success-box p { margin: 0; font-size: 14px; }
